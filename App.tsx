@@ -1,13 +1,8 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
+ * App View
  */
 
+// React
 import React from 'react';
 import {
   SafeAreaView,
@@ -19,6 +14,12 @@ import {
   View,
 } from 'react-native';
 
+// React Native Paper
+import { Button } from 'react-native-paper';
+
+// Crowstream
+import { WhoIAm } from './src/services';
+
 import {
   Colors,
   DebugInstructions,
@@ -29,7 +30,7 @@ import {
 
 const Section: React.FC<{
   title: string;
-}> = ({children, title}) => {
+}> = ({ children, title }) => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -85,6 +86,11 @@ const App = () => {
           </Section>
           <Section title="Learn More">
             Read the docs to discover what to do next:
+          </Section>
+          <Section title="Test GraphQL">
+            <Button icon="check" mode="contained" onPress={() => WhoIAm()}>
+              Press me
+            </Button>
           </Section>
           <LearnMoreLinks />
         </View>
