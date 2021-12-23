@@ -27,6 +27,8 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import { useReduxDispatch, useReduxSelector } from './src/redux/store';
+import { who_i_am } from './src/redux/user';
 
 const Section: React.FC<{
   title: string;
@@ -63,6 +65,10 @@ const App = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const value = useReduxSelector(state => state);
+  console.log(value);
+  const dispatch = useReduxDispatch();
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
@@ -88,7 +94,7 @@ const App = () => {
             Read the docs to discover what to do next:
           </Section>
           <Section title="Test GraphQL">
-            <Button icon="check" mode="contained" onPress={() => WhoIAm()}>
+            <Button icon="check" mode="contained" onPress={() => {dispatch(who_i_am({id: "a", email: "a", is_verified: true}))}}>
               Press me
             </Button>
           </Section>
