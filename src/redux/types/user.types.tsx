@@ -3,3 +3,7 @@ export interface User {
     email: string,
     is_verified: boolean
 }
+
+export interface WhoIAmUser extends User {
+
+}
