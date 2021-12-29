@@ -19,6 +19,8 @@ import { Button } from 'react-native-paper';
 
 // Crowstream
 import { WhoIAm } from './src/services';
+import { who_i_am } from './src/redux/reducers';
+import store, { useReduxDispatch, useReduxSelector } from './src/redux/store';
 
 import {
   Colors,
@@ -27,8 +29,6 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import { useReduxDispatch, useReduxSelector } from './src/redux/store';
-import { who_i_am } from './src/redux/user';
 
 const Section: React.FC<{
   title: string;
@@ -66,7 +66,6 @@ const App = () => {
   };
 
   const value = useReduxSelector(state => state);
-  console.log(value);
   const dispatch = useReduxDispatch();
 
   return (
@@ -94,7 +93,22 @@ const App = () => {
             Read the docs to discover what to do next:
           </Section>
           <Section title="Test GraphQL">
-            <Button icon="check" mode="contained" onPress={() => {dispatch(who_i_am({id: "a", email: "a", is_verified: true}))}}>
+          <Button icon="check" mode="contained" onPress={async() => {dispatch(who_i_am(await WhoIAm()))}}>
+              Press me
+            </Button>
+            {/* <Button icon="check" mode="contained" onPress={() => {
+              WhoIAm().then((result) => {
+                console.log(result);
+                dispatch(who_i_am({
+                  id: result.data.whoAmI.id,
+                  email: result.data.whoAmI.email,
+                  is_email_verified: result.data.whoAmI.is_email_verified
+                }));
+              })
+            }}>
+              Press me
+            </Button> */}
+            <Button icon="pencil" mode="contained" onPress={() => { console.log(store.getState()) }}>
               Press me
             </Button>
           </Section>
@@ -104,6 +118,10 @@ const App = () => {
     </SafeAreaView>
   );
 };
+
+const f = () => {
+  useReduxSelector(state => state);
+}
 
 const styles = StyleSheet.create({
   sectionContainer: {

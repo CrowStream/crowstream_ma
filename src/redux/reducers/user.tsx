@@ -3,12 +3,13 @@
  */
 
 // Redux Toolkit
-import { 
+import {
+    ActionReducerMapBuilder,
     CaseReducerActions,
-    createSlice, 
-    PayloadAction, 
-    Slice, 
-    SliceCaseReducers 
+    createSlice,
+    PayloadAction,
+    Slice,
+    SliceCaseReducers
 } from '@reduxjs/toolkit';
 
 // Crowstream
@@ -35,6 +36,5 @@ const userSlice: Slice<User, SliceCaseReducers<User>, string> = createSlice({
     }
 });
 
-
-export const actions: CaseReducerActions<SliceCaseReducers<User>> = userSlice.actions;
+export const { who_i_am }: CaseReducerActions<SliceCaseReducers<User>> = userSlice.actions;
 export default userSlice.reducer;

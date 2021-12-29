@@ -10,10 +10,8 @@ import {
 } from "@apollo/client";
 
 
-import { API_URL } from "@env";
-
 const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
-    uri: API_URL,
+    uri: 'http://35.192.92.41:5000/graphql/',
     cache: new InMemoryCache()
 });
 

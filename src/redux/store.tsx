@@ -2,6 +2,11 @@
  * Redux Store
  */
 
+ import thunk from 'redux-thunk';
+
+ import {applyMiddleware} from 'redux';
+
+
 // React Redux
 import { 
     useDispatch,
@@ -20,7 +25,7 @@ import rootReducer from './reducers';
 
 
 const store: EnhancedStore = configureStore({
-    reducer: rootReducer,
+    reducer: rootReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
