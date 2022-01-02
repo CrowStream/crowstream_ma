@@ -24,6 +24,9 @@ import {
     LearnMoreLinks,
     ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import { sign_in } from '../redux/reducers';
+import store, { useReduxDispatch, useReduxSelector } from '../redux/store';
+import { SignIn } from '../services';
 
 const Section: React.FC<{
     title: string;
@@ -57,6 +60,9 @@ const Login = () => {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
 
+    const value = useReduxSelector(state => state);
+    const dispatch = useReduxDispatch();
+
     return (
         <SafeAreaView>
             <TextInput
@@ -69,7 +75,11 @@ const Login = () => {
                 value={password}
                 onChangeText={text => setPassword(text)}
             />
-            <Button icon="check" mode="contained" onPress={() => { }}>
+            <Button icon="check" mode="contained" onPress={async() => {
+                console.log("ANTES:" + JSON.stringify(store.getState()))
+                await dispatch(sign_in(await SignIn(email, password)));
+                console.log("DESPUES:" + JSON.stringify(store.getState()))
+                }}>
                 Inicia sesión
             </Button>
         </SafeAreaView>

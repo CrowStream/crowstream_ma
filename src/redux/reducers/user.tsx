@@ -22,7 +22,8 @@ const userSlice: Slice<User, SliceCaseReducers<User>, string> = createSlice({
     initialState: {
         id: '',
         email: '',
-        is_email_verified: '' != ''
+        is_email_verified: '' != '',
+        token: ''
     },
     reducers: {
         who_i_am: (state: User, action: PayloadAction<User>): User => {
@@ -32,9 +33,15 @@ const userSlice: Slice<User, SliceCaseReducers<User>, string> = createSlice({
                 email: action.payload.email,
                 is_email_verified: action.payload.is_email_verified
             }
-        }
+        },
+        sign_in: (state: User, action: PayloadAction<User>): User => {
+            return {
+                ...state,
+                token: action.payload.token
+            }
+        }     
     }
 });
 
-export const { who_i_am }: CaseReducerActions<SliceCaseReducers<User>> = userSlice.actions;
+export const { who_i_am, sign_in }: CaseReducerActions<SliceCaseReducers<User>> = userSlice.actions;
 export default userSlice.reducer;

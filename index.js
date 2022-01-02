@@ -20,8 +20,8 @@ export default function Main() {
         <ApolloProvider client={client}>
             <StoreProvider store={store}>
                 <PaperProvider>
-                    <App />
-                    {/* <Login /> */}
+                    {/* <App /> */}
+                    <Login />
                 </PaperProvider>
             </StoreProvider>
         </ApolloProvider>

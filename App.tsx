@@ -96,18 +96,6 @@ const App = () => {
           <Button icon="check" mode="contained" onPress={async() => {dispatch(who_i_am(await WhoIAm()))}}>
               Press me
             </Button>
-            {/* <Button icon="check" mode="contained" onPress={() => {
-              WhoIAm().then((result) => {
-                console.log(result);
-                dispatch(who_i_am({
-                  id: result.data.whoAmI.id,
-                  email: result.data.whoAmI.email,
-                  is_email_verified: result.data.whoAmI.is_email_verified
-                }));
-              })
-            }}>
-              Press me
-            </Button> */}
             <Button icon="pencil" mode="contained" onPress={() => { console.log(store.getState()) }}>
               Press me
             </Button>
