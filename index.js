@@ -12,6 +12,9 @@ import App from './App';
 import store from './src/redux/store';
 import client from './src/services/common.services';
 import Login from './src/views/login';
+import Forum from './src/views/forum.section';
+import Support from './src/views/support';
+import CreatePost from './src/views/create_post';
 
 
 
@@ -21,7 +24,9 @@ export default function Main() {
             <StoreProvider store={store}>
                 <PaperProvider>
                     {/* <App /> */}
-                    <Login />
+                    {/* <Login /> */}
+                    {/* <Support/ > */}
+                    <CreatePost/>
                 </PaperProvider>
             </StoreProvider>
         </ApolloProvider>
