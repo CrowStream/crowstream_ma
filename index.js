@@ -15,6 +15,7 @@ import Login from './src/views/login';
 import Forum from './src/views/forum.section';
 import Support from './src/views/support';
 import CreatePost from './src/views/create_post';
+import Post from './src/views/post';
 
 
 
@@ -26,7 +27,8 @@ export default function Main() {
                     {/* <App /> */}
                     {/* <Login /> */}
                     {/* <Support/ > */}
-                    <CreatePost/>
+                    {/* <CreatePost/> */}
+                    <Post/>
                 </PaperProvider>
             </StoreProvider>
         </ApolloProvider>

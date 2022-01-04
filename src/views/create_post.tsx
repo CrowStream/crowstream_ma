@@ -7,21 +7,45 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 // React Native Paper
-import { FAB, TextInput, Button, DataTable } from 'react-native-paper';
+import { FAB, TextInput, Button, DataTable, Switch, Text, Paragraph } from 'react-native-paper';
 
 
 const CreatePost = (): JSX.Element => {
     const [title, setTitle] = React.useState('');
+    const [autor, setAuthor] = React.useState('');
     const [description, setDescription] = React.useState('');
+    const [anonymous, setAnonymous] = React.useState(false);
     return (
         <View style={styles.view}>
             <TextInput
+                activeUnderlineColor='#9D9FA2'
                 style={styles.input}
                 label="Titulo del post"
                 value={title}
                 onChangeText={title => setTitle(title)}
             />
             <TextInput
+                disabled={anonymous}
+                activeUnderlineColor='#9D9FA2'
+                style={styles.input}
+                label="Nombre del autor"
+                value={autor}
+                onChangeText={title => setAuthor(title)}
+            />
+            <View style={styles.row}>
+                <Paragraph>Autor Anónimo</Paragraph>
+                <Switch
+                    value={anonymous}
+                    color='white'
+                    onValueChange={flag => {
+                        setAnonymous(flag);
+                        setAuthor('');
+                    }}
+                />
+            </View>
+
+            <TextInput
+                activeUnderlineColor='#9D9FA2'
                 label="Descripción del post"
                 multiline
                 style={[styles.textArea, styles.input]}
@@ -65,7 +89,8 @@ const styles = StyleSheet.create({
         height: 250
     },
     input: {
-        margin: 5
+        margin: 5,
+        color: 'white'
     },
     fab: {
         position: 'absolute',
@@ -80,6 +105,13 @@ const styles = StyleSheet.create({
     },
     first: {
         flex: 2
-    }
+    },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+    },
 
 });
