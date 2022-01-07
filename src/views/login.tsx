@@ -92,7 +92,7 @@ const Login = ({ route, navigation }: Props) => {
       <Button
         onPress={() => navigation.navigate('Description')}
         >
-        Go to details
+        Venom
       </Button>
     </SafeAreaView>
   );

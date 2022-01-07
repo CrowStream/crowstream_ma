@@ -29,7 +29,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import Login from './src/views/login';
-import Descritpion from './src/views/description';
+import DescriptionView from './src/views/descriptionView';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { RootStackParamList } from './src/views/RootStackParams';
@@ -77,7 +77,7 @@ const App = () => {
         <Stack.Screen name="Login" options={{ headerShown: false }}>
           {props => <Login {...props} />}
         </Stack.Screen>
-        <Stack.Screen name="Description" component={Descritpion} options={{ headerShown: false }}/>
+        <Stack.Screen name="Description" component={DescriptionView} options={{ title: '' }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
