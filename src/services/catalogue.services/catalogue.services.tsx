@@ -14,6 +14,8 @@ import { Catalogue, VideoSet, Video } from "../../redux/types";
 // Crowstream
 import client from "../common.services";
 
+// Recommendation
+import {orderVideoListByGenre} from "../recommendation.services";
 
 const retrieve_video_by_id: DocumentNode = gql`
     query($id: Int!){
@@ -72,6 +74,8 @@ export async function generateHome(){
         for(let genre of genres){
             //Llamada a petición de recomendación
             // ---
+            let genre_list_id_p = await orderVideoListByGenre(genre, 10);
+            console.log(genre_list_id_p);
             /*--*/let genre_list_id = [0, 20, 24, 28, 31];
             // 
             let video_set: VideoSet = await fill_genre_list(genre, genre_list_id);

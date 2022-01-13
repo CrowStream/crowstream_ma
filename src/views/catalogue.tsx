@@ -62,6 +62,16 @@ const Catalogue = () => {
 
     return (
         <SafeAreaView>
+            <Button 
+                icon="check" 
+                mode="contained" 
+                accessibilityLabel='Genera la vistia inicial de videos para el usuario'
+                onPress={async() => {
+                    console.log("ANTES:" + JSON.stringify(store.getState()))
+                    await dispatch(generate_home(await generateHome()));
+                    console.log("DESPUES:" + JSON.stringify(store.getState()))
+                }}>
+            </Button>
             
         </SafeAreaView>
     );

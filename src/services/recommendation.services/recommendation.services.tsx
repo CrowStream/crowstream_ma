@@ -16,23 +16,25 @@ import { User } from "../../redux/types";
 import client from "../common.services";
 
 const order_video_list_by_genre: DocumentNode = gql`
-    query{
+    query($profileId: String!, $genre: String!, $nVideos: Int!){
         rateVideoList(profileId:$profileId, genre:$genre, nVideos: $nVideos)
     }
 `;
 
-export async function orderVideoListByGenre(profileId: string, genre: string, nVideos?: number) {
+export async function orderVideoListByGenre(genre: string, nVideos?: number) {
     try {
-        const user: User = useSelector((state: RootState) => state.user);
+        //const user: User = useSelector((state: RootState) => state.user);
+        // let profileId = User.profile.id
+        let profileId = 'c1608e9c-12df-42cb-a523-6cc33b5a00e9'; //TODO quitar
         const result: ApolloQueryResult<any> = await client.query({
             query: order_video_list_by_genre,
-            context: {
-                headers: {
-                    authorization: "Bearer "+user.token
-                }
+            variables: {
+                profileId: profileId,
+                genre: genre,
+                nVideos: nVideos
             }
         })
-        return result.data.videos 
+        return result.data.rateVideoList;
     } catch (error) {
         return []
     }
