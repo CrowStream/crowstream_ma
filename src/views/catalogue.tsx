@@ -24,9 +24,9 @@ import {
     LearnMoreLinks,
     ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import { sign_in } from '../redux/reducers';
+import { generate_home } from '../redux/reducers';
 import store, { useReduxDispatch, useReduxSelector } from '../redux/store';
-import { SignIn } from '../services';
+import { generateHome } from '../services';
 
 const Section: React.FC<{
     title: string;
@@ -57,31 +57,12 @@ const Section: React.FC<{
 };
 
 const Catalogue = () => {
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
-
     const value = useReduxSelector(state => state);
     const dispatch = useReduxDispatch();
 
     return (
         <SafeAreaView>
-            <TextInput
-                label="Email"
-                value={email}
-                onChangeText={text => setEmail(text)}
-            />
-            <TextInput
-                label="Password"
-                value={password}
-                onChangeText={text => setPassword(text)}
-            />
-            <Button icon="check" mode="contained" onPress={async() => {
-                console.log("ANTES:" + JSON.stringify(store.getState()))
-                await dispatch(sign_in(await SignIn(email, password)));
-                console.log("DESPUES:" + JSON.stringify(store.getState()))
-                }}>
-                Inicia sesión
-            </Button>
+            
         </SafeAreaView>
     );
 };
