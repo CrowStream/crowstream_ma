@@ -74,11 +74,9 @@ export async function generateHome(){
         for(let genre of genres){
             //Llamada a petición de recomendación
             // ---
-            let genre_list_id_p = await orderVideoListByGenre(genre, 10);
-            console.log(genre_list_id_p);
-            /*--*/let genre_list_id = [0, 20, 24, 28, 31];
-            // 
-            let video_set: VideoSet = await fill_genre_list(genre, genre_list_id);
+            //let genre_list_id = await orderVideoListByGenre(genre, 10);
+            let genre_list_id = [0, 4, 5, 8, 20, 24, 28, 31];
+            let video_set: VideoSet = await fill_genre_list(genre, genre_list_id.map(Number));
             if (video_set.video_list.length){
                 catalogue.videos.push(video_set)
             }            

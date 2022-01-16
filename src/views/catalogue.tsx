@@ -3,8 +3,9 @@
  */
 
 // React
-import React from 'react';
+import React, { useState } from 'react';
 import {
+    FlatList,
     SafeAreaView,
     ScrollView,
     StatusBar,
@@ -12,6 +13,7 @@ import {
     Text,
     useColorScheme,
     View,
+    Image,
 } from 'react-native';
 
 // React Native Paper
@@ -27,6 +29,8 @@ import {
 import { generate_home } from '../redux/reducers';
 import store, { useReduxDispatch, useReduxSelector } from '../redux/store';
 import { generateHome } from '../services';
+import { useSelector } from "react-redux";
+import { RootState } from "../redux";
 
 const Section: React.FC<{
     title: string;
@@ -56,27 +60,61 @@ const Section: React.FC<{
     );
 };
 
+
+
 const Catalogue = () => {
     const value = useReduxSelector(state => state);
     const dispatch = useReduxDispatch();
 
+    
     return (
         <SafeAreaView>
-            <Button 
-                icon="check" 
-                mode="contained" 
-                accessibilityLabel='Genera la vistia inicial de videos para el usuario'
-                onPress={async() => {
-                    console.log("ANTES:" + JSON.stringify(store.getState()))
-                    await dispatch(generate_home(await generateHome()));
-                    console.log("DESPUES:" + JSON.stringify(store.getState()))
-                }}>
-            </Button>
+            
+                <Button 
+                    icon="check" 
+                    mode="contained" 
+                    accessibilityLabel='Genera la vistia inicial de videos para el usuario'
+                    onPress={async() => {
+                        console.log("ANTES:" + JSON.stringify(store.getState()))
+                        await dispatch(generate_home(await generateHome()));
+                        console.log("DESPUES:" + JSON.stringify(store.getState()))
+                    }}>
+                </Button>        
+                <FlatList
+                    data = {useSelector((state: RootState) => state.catalogue.videos.length > 0 ? state.catalogue.videos : [])}
+                    renderItem={({item}) => (
+                        <View>
+                            <Text>
+                                {item.description}
+                            </Text>
+                            <FlatList
+                                data= {item.video_list}
+                                horizontal = {true}
+                                renderItem={({item}) => (
+                                    <View>
+                                        <Image
+                                            style={styles.poster}
+                                            source={{uri: item.thumbnail_url}}
+                                        ></Image>                                        
+                                        <Text>
+                                            {item.video_name}
+                                        </Text>
+                                    </View>
+                                    
+                                )}
+                                
+                            >
+                            </FlatList>
+                        </View>
+                    )}
+                >
+                </FlatList>
             
         </SafeAreaView>
     );
 };
 
+const width_poster = 200
 const styles = StyleSheet.create({
     sectionContainer: {
         marginTop: 32,
@@ -90,6 +128,10 @@ const styles = StyleSheet.create({
         marginTop: 8,
         fontSize: 18,
         fontWeight: '400',
+    },
+    poster:{
+        width: width_poster * 5/7,
+        height: width_poster,
     },
     highlight: {
         fontWeight: '700',
