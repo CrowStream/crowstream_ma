@@ -92,7 +92,7 @@ const Login = ({ route, navigation }: Props) => {
       <Button
         onPress={() => navigation.navigate('Description')}
         >
-        Venom
+        Django
       </Button>
     </SafeAreaView>
   );
