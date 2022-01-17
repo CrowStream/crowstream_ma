@@ -92,10 +92,13 @@ const Catalogue = () => {
                                 horizontal = {true}
                                 renderItem={({item}) => (
                                     <View>
-                                        <Image
+                                        {/* <Button style={styles.poster}> */}
+                                            <Image
                                             style={styles.poster}
                                             source={{uri: item.thumbnail_url}}
-                                        ></Image>                                        
+                                            >
+                                            </Image>                                        
+                                        {/* </Button> */}
                                         <Text>
                                             {item.video_name}
                                         </Text>

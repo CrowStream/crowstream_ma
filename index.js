@@ -13,6 +13,7 @@ import store from './src/redux/store';
 import client from './src/services/common.services';
 import Login from './src/views/login';
 import Catalogue from './src/views/catalogue'
+import HomeScreen from './screens/HomeScreen';
 
 
 export default function Main() {
@@ -22,7 +23,8 @@ export default function Main() {
                 <PaperProvider>
                     {/* <App /> */}
                     {/* <Login /> */}
-                    <Catalogue/>
+                    {/* <Catalogue/> */}
+                    <HomeScreen/>
                 </PaperProvider>
             </StoreProvider>
         </ApolloProvider>

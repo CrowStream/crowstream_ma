@@ -42,6 +42,7 @@ export async function fill_genre_list(genre: string, genre_list_id: number[]){
                     id: video_id
                 }
             });
+            
             let video: Video = {
                 id: result.data.retrieveVideoById.id,
                 video_name: result.data.retrieveVideoById.video_name,
@@ -50,8 +51,9 @@ export async function fill_genre_list(genre: string, genre_list_id: number[]){
                 thumbnail_url: result.data.retrieveVideoById.thumbnail_url,
                 video_url: result.data.retrieveVideoById.emavideo_url
             }
-            video_set.video_list.push(video)
+            video_set.video_list.push(video);            
         }        
+        
         return video_set;
     }catch(error){
         let video_set: VideoSet = {
@@ -74,9 +76,9 @@ export async function generateHome(){
         for(let genre of genres){
             //Llamada a petición de recomendación
             // ---
-            //let genre_list_id = await orderVideoListByGenre(genre, 10);
-            let genre_list_id = [0, 4, 5, 8, 20, 24, 28, 31];
-            let video_set: VideoSet = await fill_genre_list(genre, genre_list_id.map(Number));
+            let genre_list_id = await orderVideoListByGenre(genre, 10);
+            //let genre_list_id = [0, 4, 5, 8, 20, 24, 28, 31];
+            let video_set: VideoSet = await fill_genre_list(genre, genre_list_id.map(Number));            
             if (video_set.video_list.length){
                 catalogue.videos.push(video_set)
             }            
