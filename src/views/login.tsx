@@ -31,6 +31,7 @@ import {SignIn} from '../services';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Props } from './RootStackParams';
+import movies from '../assets/movies';
 
 const Section: React.FC<{
   title: string;
@@ -90,7 +91,7 @@ const Login = ({ route, navigation }: Props) => {
         Inicia sesión
       </Button>
       <Button
-        onPress={() => navigation.navigate('Description')}
+        onPress={() => navigation.navigate('Description', {episode: movies.movies[0]})}
         >
         Django
       </Button>

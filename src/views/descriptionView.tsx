@@ -1,38 +1,38 @@
 import React from 'react'
-import { StyleSheet, Text, View, FlatList, ScrollView, Image, Pressable } from 'react-native'
+import { StyleSheet, Text, View, Pressable } from 'react-native'
 import VideoReproduction from '../components/videoReproduction';
-import {CreateClickCountMetadata} from '../services';
+import { CreateClickCountMetadata,GetClickCountMetadataById } from '../services';
+import { PropsDescription } from './RootStackParams';
+import store, {useReduxDispatch, useReduxSelector} from '../redux/store';
 
-interface VideoPlayerProps {
-    // episode: {
-    //     id: string,
-    //     title: string,
-    //     poster: string,
-    //     duration: string,
-    //     plot: string,
-    //     video: string,
-    // }
-    episode: {
-        poster: string,
-        video: string,
+const descriptionView = ({ route, navigation }: PropsDescription) => {
+    const { episode } = route.params;
+    const videoInfo = {
+        id: episode.id,
+        poster: episode.thumbnail_url,
+        video: episode.video_url
     }
-}
 
-const descriptionView = (props: VideoPlayerProps) => {
-    const poster = 'https://storage.googleapis.com/crowstream-data/CatalogueImages/django_unchained_2012.jpeg';
-    const prueba = 'https://storage.googleapis.com/crowstream-data/CatalogueVideos/Django%20Unchained%20Official%20Trailer%20%231%20(2012)%20Quentin%20Tarantino%20Movie%20HD.mp4';
-    const episode = {
-        poster,
-        video: prueba
-    }
+    //Llamamos metodo de que le dieron click a la descripcion del video
+    React.useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', async () => {
+            const exists = await GetClickCountMetadataById("c1539cc6-3cc5-4087-ab40-b73b8f579236", episode.id);
+            if(!exists){
+                await CreateClickCountMetadata(episode.id);
+            }
+        });
+
+        return unsubscribe;
+    }, [navigation]);
+    
     return (
         <View>
-            <VideoReproduction episode={episode}></VideoReproduction>
+            <VideoReproduction episode={videoInfo}></VideoReproduction>
             <View style={{padding: 12}}>
-                <Text style={styles.title}>Django</Text>
+                <Text style={styles.title}>{episode.video_name}</Text>
                 <View style={{flexDirection: 'row'}}>
                     <Text style={styles.match}>98% match</Text>
-                    <Text style={styles.year}>2019</Text>
+                    <Text style={styles.year}>{episode.release_year}</Text>
                 </View>
 
                 <Pressable onPress={() => {console.warn('Plage')}} style={styles.playButton}>
@@ -40,7 +40,11 @@ const descriptionView = (props: VideoPlayerProps) => {
                         Play
                     </Text>
                 </Pressable>
-                <Text style={{marginVertical: 10}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel sem lobortis risus semper viverra sit amet ac nisi. Nulla velit quam, cursus et sapien ut, feugiat vulputate quam. Nunc hendrerit dui et ultrices gravida. Morbi augue dui, luctus et nulla elementum, pharetra iaculis odio. Phasellus ornare neque eu fringilla porta.</Text>
+
+                <Text style={{marginVertical: 10, color: 'black', fontWeight: '500'}}>{episode.description}</Text>
+                <Text style={styles.year}>Productor: {episode.producer}</Text>
+                <Text style={styles.year}>Director: {episode.director}</Text>
+                <Text style={styles.year}>Generos: {episode.genre}</Text>
 
                 {/* Row with icon button */}
                 <View style={{flexDirection: 'row', marginTop: 20}}>
@@ -49,8 +53,7 @@ const descriptionView = (props: VideoPlayerProps) => {
                     </Pressable>
 
                     <Pressable onPress={async () => {
-                            const res: String = await CreateClickCountMetadata("942854e5-6783-4853-955b-bdd04d15280e", 3242);
-                            console.log("la res", res)
+                            //const res: String = await CreateClickCountMetadata("942854e5-6783-4853-955b-bdd04d15280e", episode.id);
                         }}style={{alignItems: 'center', marginHorizontal: 20}}>
                        <Text style={{color: 'black'}}>Me gusta</Text> 
                     </Pressable>
