@@ -64,7 +64,7 @@ export async function GetClickCountMetadataById(user_id: string, video_id: numbe
             query: get_click_count_metadata,
             context: {
                 headers: {
-                    authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMxNTM5Y2M2LTNjYzUtNDA4Ny1hYjQwLWI3M2I4ZjU3OTIzNiIsImVtYWlsIjoidGVzdHVzZXJAdGVzdC5jb20iLCJpYXQiOjE2NDIzOTAzNDAsImV4cCI6MTY0MjM5Mzk0MH0.eLElUdpXfWiKvu8o49mACmDdMF-I8DleMj3rt2qOXqs"
+                    authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2MjQ3NDE2LWE2MDgtNGYzZS04MGM2LWE2MjJhMmQ0MTUxOCIsImVtYWlsIjoidGVzdHVzZXJAdGVzdC5jb20iLCJpYXQiOjE2NDI0NzcwNTEsImV4cCI6MTY0MjQ4MDY1MX0.26iCGvXs2TNYHYNFA7jgcI4sITjvfWGrCk70FFdH2z4"
                 }
             },
             variables: {
@@ -72,7 +72,6 @@ export async function GetClickCountMetadataById(user_id: string, video_id: numbe
                 video_id: video_id
             }
         });
-        console.log("como asi", result.data)
         const existsData = result.data.getClickCountMetadataById.user_id != null ? true : false
         return existsData;
     }catch(error){
@@ -87,7 +86,7 @@ export async function CreateClickCountMetadata(video_id: Number){
             mutation: create_click_count_metadata,
             context: {
                 headers: {
-                    authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMxNTM5Y2M2LTNjYzUtNDA4Ny1hYjQwLWI3M2I4ZjU3OTIzNiIsImVtYWlsIjoidGVzdHVzZXJAdGVzdC5jb20iLCJpYXQiOjE2NDIzOTQyMDgsImV4cCI6MTY0MjM5NzgwOH0.01L_jH3WAWFvIN9d_zeqgywXaUJ5biTKQdNCvG1wehY"
+                    authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2MjQ3NDE2LWE2MDgtNGYzZS04MGM2LWE2MjJhMmQ0MTUxOCIsImVtYWlsIjoidGVzdHVzZXJAdGVzdC5jb20iLCJpYXQiOjE2NDI0NzcwNTEsImV4cCI6MTY0MjQ4MDY1MX0.26iCGvXs2TNYHYNFA7jgcI4sITjvfWGrCk70FFdH2z4"
                 }
             },
             variables: {
@@ -108,7 +107,7 @@ export async function UpdateClickCountMetadata(user_id: String, video_id: Number
             mutation: update_click_count_metadata,
             context: {
                 headers: {
-                    authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMxNTM5Y2M2LTNjYzUtNDA4Ny1hYjQwLWI3M2I4ZjU3OTIzNiIsImVtYWlsIjoidGVzdHVzZXJAdGVzdC5jb20iLCJpYXQiOjE2NDIzOTAzNDAsImV4cCI6MTY0MjM5Mzk0MH0.eLElUdpXfWiKvu8o49mACmDdMF-I8DleMj3rt2qOXqs"
+                    authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2MjQ3NDE2LWE2MDgtNGYzZS04MGM2LWE2MjJhMmQ0MTUxOCIsImVtYWlsIjoidGVzdHVzZXJAdGVzdC5jb20iLCJpYXQiOjE2NDI0NzcwNTEsImV4cCI6MTY0MjQ4MDY1MX0.26iCGvXs2TNYHYNFA7jgcI4sITjvfWGrCk70FFdH2z4"
                 }
             },
             variables: {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View, Pressable } from 'react-native'
 import VideoReproduction from '../components/videoReproduction';
-import { CreateClickCountMetadata,GetClickCountMetadataById } from '../services';
+import { CreateClickCountMetadata,GetClickCountMetadataById, LikeVideo } from '../services';
 import { PropsDescription } from './RootStackParams';
 import store, {useReduxDispatch, useReduxSelector} from '../redux/store';
 
@@ -48,14 +48,16 @@ const descriptionView = ({ route, navigation }: PropsDescription) => {
 
                 {/* Row with icon button */}
                 <View style={{flexDirection: 'row', marginTop: 20}}>
-                    <Pressable style={{alignItems: 'center', marginHorizontal: 20}}>
-                       <Text style={{color: 'black'}}>Mi lista</Text> 
+                    <Pressable onPress={async () => {
+                            await LikeVideo("d1d71888-bbc5-4d34-933c-3fb244663dca", episode.id, 1);
+                        }}style={{alignItems: 'center', marginHorizontal: 20}}>
+                       <Text style={{color: 'black'}}>Me gusta</Text> 
                     </Pressable>
 
                     <Pressable onPress={async () => {
-                            //const res: String = await CreateClickCountMetadata("942854e5-6783-4853-955b-bdd04d15280e", episode.id);
+                            await LikeVideo("d1d71888-bbc5-4d34-933c-3fb244663dca", episode.id, 0);
                         }}style={{alignItems: 'center', marginHorizontal: 20}}>
-                       <Text style={{color: 'black'}}>Me gusta</Text> 
+                       <Text style={{color: 'black'}}>No me gusta</Text> 
                     </Pressable>
                 </View>
             </View>
