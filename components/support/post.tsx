@@ -1,54 +1,46 @@
 /**
- * Create Post
+ * Post Component
  */
 
 // React
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React from "react";
+import { StyleSheet } from "react-native";
 
 // React Native Paper
-import { FAB, Paragraph, Card, Avatar } from 'react-native-paper';
+import { Avatar, Button, Card, Paragraph } from "react-native-paper";
 
 
-const Post = (): JSX.Element => {
+const Post: React.FC<{
+    id_post: string,
+    title: string,
+    user: string,
+    description: string
+}> = ({ title, user, description}) => {
     return (
-        <View style={styles.view}>
-            <Card style={styles.card} mode={'outlined'}>
-                <Card.Title
-                    title='Titulo del post'
-                    subtitle='Autor del post'
-                    left={(props: any) => <Avatar.Icon style={styles.avatar} {...props} icon="account" />}
-                />
-                <Card.Content>
-                    <Paragraph>
-                        Contenido del post
-                    </Paragraph>
-                </Card.Content>
-            </Card>
-            <Card style={styles.card} mode={'outlined'}>
-                <Card.Title
-                    title='Autor del comentario'
-                    left={(props: any) => <Avatar.Icon style={styles.avatar} {...props} icon="account" />}
-                />
-                <Card.Content>
-                    <Paragraph>
-                        Contenido del commentario
-                    </Paragraph>
-                </Card.Content>
-            </Card>
-            <FAB
-                style={styles.fab}
-                icon="plus"
-                small
-                label="Crear Comentario"
-                onPress={() => console.log('Pressed')}
+        <Card style={styles.card} mode={'outlined'}>
+            <Card.Title
+                title={title}
+                subtitle={user}
+                left={(props: any) => <Avatar.Icon style={styles.avatar} {...props} icon="account" />}
             />
-        </View>
-
+            <Card.Content>
+                <Paragraph>
+                    {description}
+                </Paragraph>
+            </Card.Content>
+            <Card.Actions>
+                <Button
+                    {...styles.button}
+                    mode='contained'
+                    style={styles.button.style}
+                    onPress={() => { console.log("Ver más!") }}
+                >
+                    Ver más
+                </Button>
+            </Card.Actions>
+        </Card>
     );
 };
-
-Post.title = 'Crear publicación';
 
 export default Post;
 
@@ -64,18 +56,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#A7A9AC'
     },
     card: {
-        maxHeight: '100%',
-        height: 'auto'
-    },
-    fab: {
-        position: 'absolute',
-        margin: 16,
-        right: 16,
-        bottom: 16,
-        backgroundColor: "#9D9FA2"
-    },
-    view: {
-        margin: 10,
-        height: '100%'
-    },
+        margin: 4,
+    }
 });
