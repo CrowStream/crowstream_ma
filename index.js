@@ -11,7 +11,7 @@ import { name as appName } from './app.json';
 import store from './src/redux/store';
 import client from './src/services/common.services';
 import Login from './screens/LoginScreen/login';
-import HomeScreen from './screens/HomeScreen'
+import App from './App.tsx'
 import Support from './screens/SupportScreen';
 
 
@@ -21,12 +21,7 @@ export default function Main() {
         <ApolloProvider client={client}>
             <StoreProvider store={store}>
                 <PaperProvider>
-                    {/* <App /> */}
-                    {/* <Login /> */}
-                    {/* <Catalogue/> */}
-                    <HomeScreen/>
-                    {/* <CreatePost/> */}
-                    {/* <Post/> */}
+                    <App/>
                 </PaperProvider>
             </StoreProvider>
         </ApolloProvider>
