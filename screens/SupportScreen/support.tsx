@@ -7,8 +7,8 @@ import React from 'react';
 
 // React Native Paper
 import { BottomNavigation } from 'react-native-paper';
-import Forum from './forum.section';
-import SupportRequest from './request.section';
+import Forum from '../../components/support/forum.section';
+import SupportRequest from '../../components/support/request.section';
 
 
 type RoutesState = Array<{

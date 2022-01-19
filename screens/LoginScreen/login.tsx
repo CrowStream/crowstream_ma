@@ -24,9 +24,9 @@ import {
     LearnMoreLinks,
     ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import { sign_in } from '../redux/reducers';
-import store, { useReduxDispatch, useReduxSelector } from '../redux/store';
-import { SignIn } from '../services';
+import { sign_in } from '../../src/redux/reducers';
+import store, { useReduxDispatch, useReduxSelector } from '../../src/redux/store';
+import { SignIn } from '../../src/services';
 
 const Section: React.FC<{
     title: string;

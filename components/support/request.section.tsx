@@ -15,7 +15,7 @@ import {
 
 // React Native Paper
 import { Button, Card, DataTable, FAB, IconButton, Subheading, Title } from 'react-native-paper';
-import store from '../redux/store';
+import store from '../../src/redux/store';
 
 type ItemsState = Array<{
     key: number;

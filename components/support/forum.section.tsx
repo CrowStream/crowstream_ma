@@ -15,10 +15,10 @@ import { FAB } from 'react-native-paper';
 import { AnyAction, Dispatch } from 'redux';
 
 // Crowstream
-import Post from '../components/post';
-import { retrieve_all_posts } from '../redux/reducers/support';
-import store, { useReduxDispatch } from '../redux/store';
-import { RetrieveAllPosts } from '../services/support.services/post.services';
+import Post from '../../src/components/post';
+import { retrieve_all_posts } from '../../src/redux/reducers/support';
+import store, { useReduxDispatch } from '../../src/redux/store';
+import { RetrieveAllPosts } from '../../src/services/support.services/post.services';
 
 const retrieveAllPost = async() => {
     const dispatch: Dispatch<AnyAction> = useReduxDispatch();
