@@ -4,15 +4,41 @@
 
 // Apollo
 import {
-    ApolloQueryResult,
     DocumentNode,
     gql
 } from "@apollo/client";
-import { User } from "../../redux/types";
 
 // Crowstream
-import client from "../common.services";
+import { token_protected_mutation, token_protected_query } from "../common.services";
 
+
+const sign_in: DocumentNode = gql`
+    mutation($email: String!, $password: String!) {
+        signin(accountCredentials: {
+            email: $email
+            password: $password
+        }) {
+            token {
+                token
+            }
+        }
+    }
+`;
+
+const sing_up: DocumentNode = gql`
+    mutation($email: String!, $password: String!) {
+        signup(accountCredentials: {
+            email: $email
+            password: $password
+        }) {
+            account {
+                id
+                email
+                is_email_verified
+            }
+        }
+    }
+`;
 
 const who_i_am: DocumentNode = gql`
     query {
@@ -24,73 +50,26 @@ const who_i_am: DocumentNode = gql`
     }
 `;
 
-const sign_in: DocumentNode = gql` 
-    mutation($email: String!, $password: String!) {
-        signin(accountCredentials: {
-        email: $email
-        password: $password
-        }) {
-        token {
-            token
-        }
-        }
-    }
-`;
-
-// TODO: Fix token usage
-export async function WhoIAm(){
-    try{
-        const result: ApolloQueryResult<any> = await client.query({
-            query: who_i_am,
-            context: {
-                headers: {
-                    authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjUwZTU4OTc5LTM3MWYtNDdhMy04ODdhLTQ2ZjNkZmM3MTc0MCIsImVtYWlsIjoidGVzdHVzZXJAdGVzdC5jb20iLCJpYXQiOjE2NDA4MjcyMzEsImV4cCI6MTY0MDgzMDgzMX0.CgnuFOkkNUJky87Fk313odb_E-JfO_1IvxqIzuGaN8c"
-                }
-            }
-        });
-        const user: User = {
-            id: result.data.whoAmI.id,
-            email: result.data.whoAmI.email,
-            is_email_verified: result.data.whoAmI.id,
-            token: ''
-        }
-        return user;
-    }catch(error){
-        const user: User = {
-            id: '',
-            email: '',
-            is_email_verified: '' != '',
-            token: ''
-        }
-        return user;
-    }
-    
+export function signIn(email: String, password: String) {
+    return new Promise((resolve) => {
+        token_protected_mutation(sign_in, { email, password })
+            .then(resolve)
+            .catch(console.error);
+    });
 }
 
-export async function SignIn(email: String, password: String){
-    try{
-        const result = await client.mutate({
-            mutation: sign_in,
-            variables: {
-                email: email,
-                password: password
-            }
-        });
-        const user: User = {
-            id: '',
-            email: '',
-            is_email_verified: '' != '',
-            token: result.data.signin.token.token
-        }
-        return user;
-    }catch(error){
-        const user: User = {
-            id: '',
-            email: '',
-            is_email_verified: '' != '',
-            token: ''
-        }
-        return user;
-    }
-    
+export function singUp(email: String, password: String) {
+    return new Promise((resolve) => {
+        token_protected_mutation(sing_up, { email, password })
+            .then(resolve)
+            .catch(console.error);
+    });
+}
+
+export function whoIAm() {
+    return new Promise((resolve) => {
+        token_protected_query(who_i_am, {})
+            .then(resolve)
+            .catch(console.error);
+    });
 }
