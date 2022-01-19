@@ -16,6 +16,7 @@
     "@react-navigation/stack": "^6.0.11",
     "@reduxjs/toolkit": "^1.7.1",
     "@types/react-native-video": "^5.0.12",
+    "expo": "^44.0.5",
     "graphql": "^16.2.0",
     "react": "17.0.2",
     "react-native": "0.66.3",
@@ -29,7 +30,15 @@
     "react-native-video-player": "^0.12.0",
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
-    "redux-thunk": "^2.4.1"
+    "redux-thunk": "^2.4.1",
+    "expo-av": "~10.2.0"
+  },
+  "expo": {
+    "autolinking": {
+      "exclude": [
+        "expo-file-system"
+      ]
+    }
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
