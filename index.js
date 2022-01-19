@@ -12,8 +12,16 @@ import App from './App';
 import store from './src/redux/store';
 import client from './src/services/common.services';
 import Login from './src/views/login';
+<<<<<<< HEAD
 import Catalogue from './src/views/catalogue'
 import HomeScreen from './screens/HomeScreen';
+=======
+import Forum from './src/views/forum.section';
+import Support from './src/views/support';
+import CreatePost from './src/views/create_post';
+import Post from './src/views/post';
+
+>>>>>>> fe808bde783706e33545e4498c3f3d30060a74f3
 
 
 export default function Main() {
@@ -23,8 +31,14 @@ export default function Main() {
                 <PaperProvider>
                     {/* <App /> */}
                     {/* <Login /> */}
+<<<<<<< HEAD
                     {/* <Catalogue/> */}
                     <HomeScreen/>
+=======
+                    <Support/ >
+                    {/* <CreatePost/> */}
+                    {/* <Post/> */}
+>>>>>>> fe808bde783706e33545e4498c3f3d30060a74f3
                 </PaperProvider>
             </StoreProvider>
         </ApolloProvider>
