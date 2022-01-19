@@ -26,9 +26,9 @@ export default function Main() {
                 <PaperProvider>
                     {/* <App /> */}
                     {/* <Login /> */}
-                    {/* <Support/ > */}
+                    <Support/ >
                     {/* <CreatePost/> */}
-                    <Post/>
+                    {/* <Post/> */}
                 </PaperProvider>
             </StoreProvider>
         </ApolloProvider>

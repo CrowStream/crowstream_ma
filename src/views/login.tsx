@@ -76,9 +76,7 @@ const Login = () => {
                 onChangeText={text => setPassword(text)}
             />
             <Button icon="check" mode="contained" onPress={async() => {
-                console.log("ANTES:" + JSON.stringify(store.getState()))
                 await dispatch(sign_in(await SignIn(email, password)));
-                console.log("DESPUES:" + JSON.stringify(store.getState()))
                 }}>
                 Inicia sesión
             </Button>

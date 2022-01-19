@@ -18,7 +18,7 @@ import {
 } from 'redux';
 
 // Crowstream
-import { Comment, Forum, Post } from '../types';
+import { Comment, Forum, Post, UserRequests } from '../types';
 
 
 // Initial state of forum slice
@@ -50,37 +50,33 @@ const forumSlice: Slice<Forum, SliceCaseReducers<Forum>, string> = createSlice({
     }
 });
 
-/*const requestsSlice: Slice<Forum, SliceCaseReducers<Forum>, string> = createSlice({
+const requestsInitialState: UserRequests = {
+    requests: []
+}
+
+const requestsSlice: Slice<UserRequests, SliceCaseReducers<UserRequests>, string> = createSlice({
     name: 'forum',
-    initialState: {
-        posts: []
-    },
+    initialState: requestsInitialState,
     reducers: {
-        retrieve_all_posts: (state: Forum, action: PayloadAction<Forum>): Forum => {
+        retrieve_all_support_requests: (state: UserRequests, action: PayloadAction<UserRequests>): UserRequests => {
             return {
-                posts: action.payload.posts
+                requests: action.payload.requests
             }
         },
-        retrieve_post_by_id: (state: Forum, action: PayloadAction<Forum>): Forum => {
+        retrieve_support_request_by_id: (state: UserRequests, action: PayloadAction<UserRequests>): UserRequests => {
             return {
                 ...state,
-                posts: action.payload.posts
+                requests: action.payload.requests
             }
         },
-        create_post: (state: Forum, action: PayloadAction<Forum>): Forum => {
+        create_support_request: (state: UserRequests, action: PayloadAction<UserRequests>): UserRequests => {
             return {
                 ...state,
-                posts: action.payload.posts
-            }
-        },
-        create_comment: (state: Forum, action: PayloadAction<Forum>): Forum => {
-            return {
-                ...state,
-                posts: action.payload.posts
+                requests: action.payload.requests
             }
         }
     }
-});*/
+});
 
 export const { 
     retrieve_all_posts, 
@@ -89,5 +85,12 @@ export const {
     create_comment 
 }: CaseReducerActions<SliceCaseReducers<Forum>> = forumSlice.actions;
 
+export const { 
+    retrieve_all_support_requests, 
+    retrieve_support_request_by_id, 
+    create_support_request
+}: CaseReducerActions<SliceCaseReducers<UserRequests>> = requestsSlice.actions;
 
-export const forum_slice: Reducer<Forum, AnyAction> = forumSlice.reducer;
+
+export const forum_reducer: Reducer<Forum, AnyAction> = forumSlice.reducer;
+export const request_reducer: Reducer<UserRequests, AnyAction> = requestsSlice.reducer;

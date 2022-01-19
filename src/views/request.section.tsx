@@ -15,6 +15,7 @@ import {
 
 // React Native Paper
 import { Button, Card, DataTable, FAB, IconButton, Subheading, Title } from 'react-native-paper';
+import store from '../redux/store';
 
 type ItemsState = Array<{
     key: number;
@@ -26,6 +27,8 @@ type ItemsState = Array<{
 const SupportRequest = (): JSX.Element => {
     const [sortAscending, setSortAscending] = React.useState<boolean>(true);
     const [page, setPage] = React.useState<number>(0);
+    //const [items] = React.useState<ItemsState>(store.getState().UserRequests)
+    
     const [items] = React.useState<ItemsState>([
         {
             key: 1,

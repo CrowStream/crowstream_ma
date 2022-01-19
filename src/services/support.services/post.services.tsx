@@ -23,9 +23,12 @@ const retrieve_all_posts: DocumentNode = gql`
         retrieveAllPost {
             _id
             user_id
+            user_nick
+            title
             description
             comments {
                 _id
+                user_nick
                 user_id
                 description
                 files
@@ -98,6 +101,7 @@ const create_comment: DocumentNode = gql`
 export async function RetrieveAllPosts() {
     try{
         const result: ApolloQueryResult<any> = await token_protected_query(retrieve_all_posts, {});
+        return result.data.retrieveAllPost;
     }catch(error){
         console.error(error);
     }
