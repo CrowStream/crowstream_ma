@@ -11,16 +11,34 @@
   },
   "dependencies": {
     "@apollo/client": "^3.5.6",
+    "@react-navigation/native": "^6.0.6",
+    "@react-navigation/native-stack": "^6.2.5",
+    "@react-navigation/stack": "^6.0.11",
     "@reduxjs/toolkit": "^1.7.1",
+    "@types/react-native-video": "^5.0.12",
+    "expo": "^44.0.5",
     "graphql": "^16.2.0",
     "react": "17.0.2",
     "react-native": "0.66.3",
     "react-native-dotenv": "^3.3.1",
+    "react-native-gesture-handler": "^2.1.0",
     "react-native-paper": "^4.11.1",
+    "react-native-safe-area-context": "^3.3.2",
+    "react-native-screens": "^3.10.1",
     "react-native-vector-icons": "^9.0.0",
+    "react-native-video": "^5.2.0",
+    "react-native-video-player": "^0.12.0",
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
-    "redux-thunk": "^2.4.1"
+    "redux-thunk": "^2.4.1",
+    "expo-av": "~10.2.0"
+  },
+  "expo": {
+    "autolinking": {
+      "exclude": [
+        "expo-file-system"
+      ]
+    }
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -29,6 +47,7 @@
     "@types/jest": "^26.0.23",
     "@types/react-native": "^0.66.4",
     "@types/react-native-dotenv": "^0.2.0",
+    "@types/react-native-video-player": "^0.10.2",
     "@types/react-redux": "^7.1.20",
     "@types/react-test-renderer": "^17.0.1",
     "babel-jest": "^26.6.3",

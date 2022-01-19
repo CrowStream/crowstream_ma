@@ -1,8 +1,14 @@
+/* eslint-disable prettier/prettier */
 /**
- * App View
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * Generated with the TypeScript template
+ * https://github.com/react-native-community/react-native-template-typescript
+ *
+ * @format
  */
 
-// React
 import React from 'react';
 import {
   SafeAreaView,
@@ -14,14 +20,6 @@ import {
   View,
 } from 'react-native';
 
-// React Native Paper
-import { Button } from 'react-native-paper';
-
-// Crowstream
-import { WhoIAm } from './src/services';
-import { who_i_am } from './src/redux/reducers';
-import store, { useReduxDispatch, useReduxSelector } from './src/redux/store';
-
 import {
   Colors,
   DebugInstructions,
@@ -30,9 +28,15 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import Login from './src/views/login';
+import DescriptionView from './src/views/descriptionView';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { RootStackParamList } from './src/views/RootStackParams';
+
 const Section: React.FC<{
   title: string;
-}> = ({ children, title }) => {
+}> = ({children, title}) => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -58,6 +62,8 @@ const Section: React.FC<{
   );
 };
 
+const Stack = createStackNavigator<RootStackParamList>();
+
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -65,51 +71,17 @@ const App = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  const value = useReduxSelector(state => state);
-  const dispatch = useReduxDispatch();
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <Section title="Test GraphQL">
-          <Button icon="check" mode="contained" onPress={async() => {dispatch(who_i_am(await WhoIAm()))}}>
-              Press me
-            </Button>
-            <Button icon="pencil" mode="contained" onPress={() => { console.log(store.getState()) }}>
-              Press me
-            </Button>
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Login" options={{ headerShown: false }}>
+          {props => <Login {...props} />}
+        </Stack.Screen>
+        <Stack.Screen name="Description" component={DescriptionView} options={{ title: '' }}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
-const f = () => {
-  useReduxSelector(state => state);
-}
 
 const styles = StyleSheet.create({
   sectionContainer: {
