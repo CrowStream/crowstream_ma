@@ -6,31 +6,32 @@ import { UpdateClickCountMetadata } from '../../src/services';
 import { Video } from 'expo-av';
 
 interface VideoPlayerProps {
-    // episode: {
-    //     id: string,
-    //     title: string,
-    //     poster: string,
-    //     duration: string,
-    //     plot: string,
-    //     video: string,
-    // }
     episode: {
         id: number,
         poster: string,
         video: string,
-    }
+    },
+    metadata: {
+        user_id: string,
+        video_id: number,
+        video_progress: number,
+        video_progress_time: string
+    },
+    func: Function
 }
 
+let updatedClick = false;
+
 const VideoReproduction = (props: VideoPlayerProps) => {
-    const { episode } = props;
-    console.log("el episodio", episode)
+    const { episode, metadata } = props;
+    console.log("la meta llego ", metadata)
     const video = React.useRef(null);
-    /*
+
     async function updateClickCount(){
-        console.warn("holi")
-        await UpdateClickCountMetadata("c1539cc6-3cc5-4087-ab40-b73b8f579236",episode.id);
+        await UpdateClickCountMetadata("0ce528d5-257c-4974-bbfe-12dfdd2965f3",episode.id);
     }
-    */
+
+
     const [playbackInstanceInfo, setPlaybackInstanceInfo] = React.useState({
         position: 0,
         duration: 0,
@@ -54,7 +55,12 @@ const VideoReproduction = (props: VideoPlayerProps) => {
                     status.isBuffering ? 'Buffering':
                     status.shouldPlay ? 'Playing' : 'Paused'
                 })
-               UpdateClickCountMetadata("c1539cc6-3cc5-4087-ab40-b73b8f579236",episode.id);
+
+                if(updatedClick == false){
+                    updateClickCount()
+                }
+
+                props.func(playbackInstanceInfo.position);
             } else {
                 // Update your UI for the paused state
                 console.log("tiempo: ", playbackInstanceInfo.position)
@@ -72,13 +78,6 @@ const VideoReproduction = (props: VideoPlayerProps) => {
 
     return (
         <SafeAreaView>
-            {/* <VideoPlayer 
-                video={{uri: episode.video}}
-                thumbnail={{uri: episode.poster}}
-                style={styles.backgroundVideo}
-                resizeMode='contain'
-                onStart={updateClickCount}
-             /> */}
              <Video
                 ref={video}
                 style={styles.backgroundVideo}
@@ -93,7 +92,6 @@ const VideoReproduction = (props: VideoPlayerProps) => {
                 }}
                 volume={1.0}
                 usePoster={true}
-                positionMillis={50000}
                 useNativeControls
                 resizeMode="contain"
                 onPlaybackStatusUpdate={updatePlaybackCallback}

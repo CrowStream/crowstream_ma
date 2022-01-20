@@ -1,23 +1,44 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { StyleSheet, Text, View, Pressable } from 'react-native'
 import { IconButton } from 'react-native-paper';
 import VideoReproduction from '../../components/reproduction/videoReproduction';
-import { CreateClickCountMetadata,GetClickCountMetadataById, LikeVideo } from '../../src/services';
+import { CreateClickCountMetadata,GetClickCountMetadataById, LikeVideo, GetUserVideoMetadataById, CreateUserVideoMetadata } from '../../src/services';
 import { PropsDescription } from '../RootStackParams';
+import { UserVideoMetadata } from '../../src/redux/types'
 
 const descriptionView = ({ route, navigation }: PropsDescription) => {
     const { episode } = route.params;
-    console.log("el video", episode)
+    let progressVideo = 0;
+
     const videoInfo = {
         id: episode.id,
         poster: episode.thumbnail_url,
         video: episode.video_url
     }
 
+    let userVideoMetadata = {
+        user_id: '',
+        video_id: -1,
+        video_progress: -1,
+        video_progress_time: '',
+        load : false
+    };
+
+    const pull_data = (progress: number) => {
+        progressVideo = progress // LOGS DATA FROM CHILD 
+    }
+    
     //Llamamos metodo de que le dieron click a la descripcion del video
-    React.useEffect(() => {
+    React.useLayoutEffect(() => {
         const unsubscribe = navigation.addListener('focus', async () => {
-            const exists = await GetClickCountMetadataById("c1539cc6-3cc5-4087-ab40-b73b8f579236", episode.id);
+            let res = await GetUserVideoMetadataById("0ce528d5-257c-4974-bbfe-12dfdd2965f3", episode.id)
+            userVideoMetadata.user_id = res.user_id
+            userVideoMetadata.video_id = res.video_id
+            userVideoMetadata.video_progress = res.video_progress
+            userVideoMetadata.video_progress_time = res.video_progress_time
+            userVideoMetadata.load = true
+
+            const exists = await GetClickCountMetadataById("0ce528d5-257c-4974-bbfe-12dfdd2965f3", episode.id);
             if(!exists){
                 await CreateClickCountMetadata(episode.id);
             }
@@ -25,10 +46,19 @@ const descriptionView = ({ route, navigation }: PropsDescription) => {
 
         return unsubscribe;
     }, [navigation]);
+
+    //Llamamos metodo antes de cerrar la vista
+    React.useEffect(() => {
+        const unsubscribe = navigation.addListener('beforeRemove', async () => {
+            CreateUserVideoMetadata(episode.id, progressVideo)
+        });
+
+        return unsubscribe;
+    }, [navigation]);
     
     return (
         <View>
-            <VideoReproduction episode={videoInfo}></VideoReproduction>
+            <VideoReproduction func={pull_data} episode={videoInfo} metadata={userVideoMetadata}/>
             <View style={{padding: 12}}>
                 <Text style={styles.title}>{episode.video_name}</Text>
                 <View style={{flexDirection: 'row'}}>

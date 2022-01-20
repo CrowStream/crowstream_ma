@@ -10,7 +10,6 @@ import styles from './styles';
 type homeScreenProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
 const VideoItem = ({ video }: {video: Video}) => {
-    console.log("primer video ", video)
     const navigation = useNavigation<homeScreenProp>();
     return (
         <Pressable onPress={()=> navigation.navigate('Description', {episode: video})}>
