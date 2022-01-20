@@ -48,25 +48,25 @@ const get_all_profiles: DocumentNode = gql`
 `;
 
 export function createProfile(name: String) {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         token_protected_mutation(create_profile, { name })
             .then(resolve)
-            .catch(console.error);
+            .catch(reject);
     });
 }
 
 export function getProfileByID(id: String) {
-    return new Promise((resolve) => {
+    return new Promise((resolve,reject) => {
         token_protected_query(get_profile_by_id, { id })
             .then(resolve)
-            .catch(console.error);
+            .catch(reject);
     });
 }
 
 export function getAllProfiles() {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         token_protected_query(get_all_profiles, {})
             .then(resolve)
-            .catch(console.error);
+            .catch(reject);
     });
 }

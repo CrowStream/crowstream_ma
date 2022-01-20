@@ -22,6 +22,7 @@ const styles =  StyleSheet.create({
         paddingRight: 20,
     },
 
+
     login: {
         paddingTop: 60,
     },
@@ -44,6 +45,7 @@ const styles =  StyleSheet.create({
     login_register: {
         marginBottom: 34,
     },
+
 
     register: {
         paddingTop: 60,
@@ -68,6 +70,32 @@ const styles =  StyleSheet.create({
         marginBottom: 15,
     },
     register_password_conf_input: {
+        marginBottom: 28,
+    },
+
+
+    profile_selection: {
+        marginTop: 45,
+    },
+    profile_selection_title: {
+        marginBottom: 15,
+    },
+    profile_selection_description: {
+        marginBottom: 30,
+    },
+
+
+    profile_creation: {
+        paddingTop: 60,
+    },
+    profile_creation_title: {
+        textAlign: 'center',
+        marginBottom: 75,
+    },
+    profile_creation_name: {
+        marginBottom: 15,
+    },
+    profile_creation_name_input: {
         marginBottom: 28,
     },
 });
