@@ -24,7 +24,11 @@ const retrieve_video_by_id: DocumentNode = gql`
             video_name,
             release_year,
             thumbnail_url,
-            video_url
+            video_url,
+            producer,
+            director,
+            genre,
+            description
         }
     }
 `;
@@ -46,10 +50,13 @@ export async function fill_genre_list(genre: string, genre_list_id: number[]){
             let video: Video = {
                 id: result.data.retrieveVideoById.id,
                 video_name: result.data.retrieveVideoById.video_name,
-                released_year: result.data.retrieveVideoById.released_year,
+                release_year: result.data.retrieveVideoById.release_year,
                 description: result.data.retrieveVideoById.description,
                 thumbnail_url: result.data.retrieveVideoById.thumbnail_url,
-                video_url: result.data.retrieveVideoById.emavideo_url
+                video_url: result.data.retrieveVideoById.video_url,
+                producer: result.data.retrieveVideoById.producer,
+                director: result.data.retrieveVideoById.director,
+                genre: result.data.retrieveVideoById.genre,
             }
             video_set.video_list.push(video);            
         }        

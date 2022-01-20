@@ -9,8 +9,9 @@ import { RootState } from '../../src/redux';
 
 import styles from './styles';
 import HomeCategory from '../../components/catalogue/HomeCategory';
+import { PropsHome } from '../RootStackParams';
 
-const HomeScreen = () => {
+const HomeScreen = ({ route, navigation }: PropsHome) => {
     const value = useReduxSelector(state => state);
     const dispatch = useReduxDispatch();
 

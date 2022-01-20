@@ -1,11 +1,13 @@
 import React from 'react'
 import { StyleSheet, Text, View, Pressable } from 'react-native'
+import { IconButton } from 'react-native-paper';
 import VideoReproduction from '../../components/reproduction/videoReproduction';
 import { CreateClickCountMetadata,GetClickCountMetadataById, LikeVideo } from '../../src/services';
 import { PropsDescription } from '../RootStackParams';
 
 const descriptionView = ({ route, navigation }: PropsDescription) => {
     const { episode } = route.params;
+    console.log("el video", episode)
     const videoInfo = {
         id: episode.id,
         poster: episode.thumbnail_url,
@@ -50,12 +52,14 @@ const descriptionView = ({ route, navigation }: PropsDescription) => {
                     <Pressable onPress={async () => {
                             await LikeVideo("d1d71888-bbc5-4d34-933c-3fb244663dca", episode.id, 1);
                         }}style={{alignItems: 'center', marginHorizontal: 20}}>
+                        <IconButton icon="thumb-up"/>
                        <Text style={{color: 'black'}}>Me gusta</Text> 
                     </Pressable>
 
                     <Pressable onPress={async () => {
                             await LikeVideo("d1d71888-bbc5-4d34-933c-3fb244663dca", episode.id, 0);
                         }}style={{alignItems: 'center', marginHorizontal: 20}}>
+                        <IconButton icon="thumb-down"/>
                        <Text style={{color: 'black'}}>No me gusta</Text> 
                     </Pressable>
                 </View>

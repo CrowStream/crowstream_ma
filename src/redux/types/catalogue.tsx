@@ -5,8 +5,11 @@
 export interface Video {
     id: number,
     video_name: string,
-    released_year: number,
+    release_year: number,
     description: string,
+    producer: string,
+    director: string,
+    genre: string,
     thumbnail_url: string,
     video_url: string
 }

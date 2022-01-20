@@ -28,11 +28,11 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import Login from './src/views/login';
-import DescriptionView from './src/views/descriptionView';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { RootStackParamList } from './src/views/RootStackParams';
+import { RootStackParamList } from './screens/RootStackParams';
+import DescriptionView from './screens/DescriptionScreen/descriptionView';
+import HomeView from './screens/HomeScreen/HomeScreen';
 
 const Section: React.FC<{
   title: string;
@@ -74,10 +74,8 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Login" options={{ headerShown: false }}>
-          {props => <Login {...props} />}
-        </Stack.Screen>
-        <Stack.Screen name="Description" component={DescriptionView} options={{ title: '' }}/>
+        <Stack.Screen name="Home" component={HomeView} options={{ headerShown: false }}/>
+        <Stack.Screen name="Description" component={DescriptionView} options={{ title: 'Descripcion' }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

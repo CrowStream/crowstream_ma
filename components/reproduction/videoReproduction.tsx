@@ -23,6 +23,7 @@ interface VideoPlayerProps {
 
 const VideoReproduction = (props: VideoPlayerProps) => {
     const { episode } = props;
+    console.log("el episodio", episode)
     const video = React.useRef(null);
     /*
     async function updateClickCount(){
@@ -92,6 +93,7 @@ const VideoReproduction = (props: VideoPlayerProps) => {
                 }}
                 volume={1.0}
                 usePoster={true}
+                positionMillis={50000}
                 useNativeControls
                 resizeMode="contain"
                 onPlaybackStatusUpdate={updatePlaybackCallback}
