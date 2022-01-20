@@ -8,6 +8,7 @@ import {
     DocumentNode,
     gql
 } from "@apollo/client";
+import store from "../../redux/store";
 
 // Crowstream
 import client from "../common.services";
@@ -62,7 +63,7 @@ export async function GetClickCountMetadataById(user_id: string, video_id: numbe
             query: get_click_count_metadata,
             context: {
                 headers: {
-                    authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjZTUyOGQ1LTI1N2MtNDk3NC1iYmZlLTEyZGZkZDI5NjVmMyIsImVtYWlsIjoidGVzdHVzZXJAdGVzdC5jb20iLCJpYXQiOjE2NDI2NjEwNDMsImV4cCI6MTY0MjY2NDY0M30.geG7W2NfPBBDzDbiW3kId6-q9kaE3fRg_rjNJMjv1_I"
+                    authorization: `Bearer ${store.getState().user.token}`
                 }
             },
             variables: {
@@ -84,7 +85,7 @@ export async function CreateClickCountMetadata(video_id: Number){
             mutation: create_click_count_metadata,
             context: {
                 headers: {
-                    authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjZTUyOGQ1LTI1N2MtNDk3NC1iYmZlLTEyZGZkZDI5NjVmMyIsImVtYWlsIjoidGVzdHVzZXJAdGVzdC5jb20iLCJpYXQiOjE2NDI2NjEwNDMsImV4cCI6MTY0MjY2NDY0M30.geG7W2NfPBBDzDbiW3kId6-q9kaE3fRg_rjNJMjv1_I"
+                    authorization: `Bearer ${store.getState().user.token}`
                 }
             },
             variables: {
@@ -105,7 +106,7 @@ export async function UpdateClickCountMetadata(user_id: String, video_id: Number
             mutation: update_click_count_metadata,
             context: {
                 headers: {
-                    authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjZTUyOGQ1LTI1N2MtNDk3NC1iYmZlLTEyZGZkZDI5NjVmMyIsImVtYWlsIjoidGVzdHVzZXJAdGVzdC5jb20iLCJpYXQiOjE2NDI2NjEwNDMsImV4cCI6MTY0MjY2NDY0M30.geG7W2NfPBBDzDbiW3kId6-q9kaE3fRg_rjNJMjv1_I"
+                    authorization: `Bearer ${store.getState().user.token}`
                 }
             },
             variables: {

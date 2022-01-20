@@ -5,10 +5,12 @@ import VideoReproduction from '../../components/reproduction/videoReproduction';
 import { CreateClickCountMetadata,GetClickCountMetadataById, LikeVideo, GetUserVideoMetadataById, CreateUserVideoMetadata } from '../../src/services';
 import { PropsDescription } from '../RootStackParams';
 import { UserVideoMetadata } from '../../src/redux/types'
+import store from '../../src/redux/store';
 
 const descriptionView = ({ route, navigation }: PropsDescription) => {
     const { episode } = route.params;
     let progressVideo = 0;
+    let userId = store.getState().user.id;
 
     const videoInfo = {
         id: episode.id,
@@ -31,14 +33,14 @@ const descriptionView = ({ route, navigation }: PropsDescription) => {
     //Llamamos metodo de que le dieron click a la descripcion del video
     React.useLayoutEffect(() => {
         const unsubscribe = navigation.addListener('focus', async () => {
-            let res = await GetUserVideoMetadataById("0ce528d5-257c-4974-bbfe-12dfdd2965f3", episode.id)
+            let res = await GetUserVideoMetadataById(userId, episode.id)
             userVideoMetadata.user_id = res.user_id
             userVideoMetadata.video_id = res.video_id
             userVideoMetadata.video_progress = res.video_progress
             userVideoMetadata.video_progress_time = res.video_progress_time
             userVideoMetadata.load = true
 
-            const exists = await GetClickCountMetadataById("0ce528d5-257c-4974-bbfe-12dfdd2965f3", episode.id);
+            const exists = await GetClickCountMetadataById(userId, episode.id);
             if(!exists){
                 await CreateClickCountMetadata(episode.id);
             }
@@ -66,7 +68,7 @@ const descriptionView = ({ route, navigation }: PropsDescription) => {
                     <Text style={styles.year}>{episode.release_year}</Text>
                 </View>
 
-                <Pressable onPress={() => {console.warn('Plage')}} style={styles.playButton}>
+                <Pressable style={styles.playButton}>
                     <Text style={styles.playButtonText}>
                         Play
                     </Text>
@@ -80,14 +82,16 @@ const descriptionView = ({ route, navigation }: PropsDescription) => {
                 {/* Row with icon button */}
                 <View style={{flexDirection: 'row', marginTop: 20}}>
                     <Pressable onPress={async () => {
-                            await LikeVideo("d1d71888-bbc5-4d34-933c-3fb244663dca", episode.id, 1);
+                            let res = await LikeVideo(userId, episode.id, 1);
+                            console.log("like ", res)
                         }}style={{alignItems: 'center', marginHorizontal: 20}}>
                         <IconButton icon="thumb-up"/>
                        <Text style={{color: 'black'}}>Me gusta</Text> 
                     </Pressable>
 
                     <Pressable onPress={async () => {
-                            await LikeVideo("d1d71888-bbc5-4d34-933c-3fb244663dca", episode.id, 0);
+                            let res = await LikeVideo(userId, episode.id, 0);
+                            console.log("like ", res)
                         }}style={{alignItems: 'center', marginHorizontal: 20}}>
                         <IconButton icon="thumb-down"/>
                        <Text style={{color: 'black'}}>No me gusta</Text> 

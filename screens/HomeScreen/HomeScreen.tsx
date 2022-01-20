@@ -15,10 +15,18 @@ const HomeScreen = ({ route, navigation }: PropsHome) => {
     const value = useReduxSelector(state => state);
     const dispatch = useReduxDispatch();
 
+    //Llamamos metodo de que le dieron click a la descripcion del video
+    React.useLayoutEffect(() => {
+        const unsubscribe = navigation.addListener('focus', async () => {
+            await dispatch(generate_home(await generateHome()));
+        });
+
+        return unsubscribe;
+    }, [navigation]);
+
     return (
         <SafeAreaView>
-
-            <Button
+            {/* <Button
                 icon="check"
                 mode="contained"
                 accessibilityLabel='Genera la vistia inicial de videos para el usuario'
@@ -27,7 +35,7 @@ const HomeScreen = ({ route, navigation }: PropsHome) => {
                     await dispatch(generate_home(await generateHome()));
                     console.log("DESPUES:" + JSON.stringify(store.getState()))
                 }}>
-            </Button>
+            </Button> */}
             <View>
                 <FlatList
                     data={useSelector((state: RootState) => state.catalogue.videos.length > 0 ? state.catalogue.videos : [])}

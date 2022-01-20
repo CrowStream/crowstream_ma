@@ -48,6 +48,7 @@ import { PropsRegister } from '../RootStackParams';
                 style={[styles.register_password, styles.p1]}
             > Escribe tu contraseña: </Text>
             <TextInput
+                secureTextEntry={true}
                 label="Contraseña"
                 value={password}
                 onChangeText={password => setPassword(password)}
@@ -58,6 +59,7 @@ import { PropsRegister } from '../RootStackParams';
                 style={[styles.register_password_conf, styles.p1]}
             > Confirma tu contraseña: </Text>
             <TextInput
+                secureTextEntry={true}
                 label="Coonfirmación de contraseña"
                 value={passwordConf}
                 onChangeText={passwordConf => setPasswordConf(passwordConf)}

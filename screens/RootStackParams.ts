@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Video, UserVideoMetadata } from '../src/redux/types';
+import { Video } from '../src/redux/types';
 
 export type RootStackParamList = {
     Login: undefined;

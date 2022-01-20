@@ -55,6 +55,7 @@ export function LoginScreen({ route, navigation }: PropsLogin) {
                     style={[styles.login_password, styles.p1]}
                 > Escribe tu contraseña: </Text>
                 <TextInput
+                    secureTextEntry={true}
                     label="Contraseña"
                     value={password}
                     onChangeText={password => setPassword(password)}

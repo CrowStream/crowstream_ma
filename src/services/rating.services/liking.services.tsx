@@ -25,6 +25,7 @@ const likevideo: DocumentNode = gql`
 
 export async function LikeVideo(user_id: String, video_id: number, like: number){
     try{
+        console.log("hola")
         const result = await client.mutate({
             mutation: likevideo,
             variables: {
@@ -38,6 +39,7 @@ export async function LikeVideo(user_id: String, video_id: number, like: number)
             video_id: result.data.liking.liked.video_id,
             like: result.data.liking.liked.like
         }
+        console.log("la res", liked)
         return liked;
     }catch(error){
         console.log("un error", error)
