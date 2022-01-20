@@ -15,15 +15,12 @@
  import {
      signUp,
  } from '../../src/services';
- 
- import {
-     sign_up,
- } from '../../src/redux';
+import { PropsRegister } from '../RootStackParams';
  
  
  import styles from './styles';
  
- export function RegisterScreen() {
+ export function RegisterScreen({ route, navigation }: PropsRegister) {
      const value = useReduxSelector(state => state);
      const dispatch = useReduxDispatch();
  
@@ -74,8 +71,7 @@
                         signUp(email, password)
                             .then((response) => {
                                 if (typeof response != 'string') {
-                                    // TODO: Remove this console log and redirect to login page
-                                    console.log('Registrado papu', response);
+                                    navigation.navigate('Login');
                                 }
                             });
                     }

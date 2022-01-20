@@ -15,31 +15,22 @@ import { useSelector } from "react-redux";
 import { ProfileSelector, NewProfileSelector } from '../../components/user';
 
 import {
-    getAllProfiles,
-} from '../../src/services';
-
-import {
-    get_all_profiles,
     RootState,
 } from '../../src/redux';
 
 
 import styles from './styles';
-import { Profile } from '../../src/redux/types';
+import { PropsProfileSelection } from '../RootStackParams';
 
-export function ProfileSelectionScreen() {
+export function ProfileSelectionScreen({ route, navigation }: PropsProfileSelection) {
     const value = useReduxSelector(state => state);
     const dispatch = useReduxDispatch();
 
     const profileAction = () => {
-
+        navigation.navigate('Home');
     };
 
-    // getAllProfiles()
-    //     .then((response) => {
-    //         dispatch(get_all_profiles(response));
-    //     })
-    //     .catch(console.error);
+    // getProfiles(dispatch);
 
     return (
         <SafeAreaView>
@@ -56,7 +47,7 @@ export function ProfileSelectionScreen() {
                     data={useSelector((state: RootState) => state.profiles.profiles)}
                     renderItem={({ item }) => <ProfileSelector profile={item} action={profileAction} />}
                 > </FlatList>
-                <NewProfileSelector />
+                <NewProfileSelector navigation={navigation} />
             </View>
         </SafeAreaView>
     );

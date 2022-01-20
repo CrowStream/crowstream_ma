@@ -33,6 +33,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { RootStackParamList } from './screens/RootStackParams';
 import DescriptionView from './screens/DescriptionScreen/descriptionView';
 import HomeView from './screens/HomeScreen/HomeScreen';
+import { LoginScreen, ProfileCreationScreen, ProfileSelectionScreen, RegisterScreen } from './screens/UserScreens';
+import { ProfileSelector } from './components/user';
 
 const Section: React.FC<{
   title: string;
@@ -74,6 +76,10 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen name="Login">{props => <LoginScreen {...props} />}</Stack.Screen>
+        <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="ProfileSelection" component={ProfileSelectionScreen} />
+        <Stack.Screen name="ProfileCreation" component={ProfileCreationScreen} />
         <Stack.Screen name="Home" component={HomeView} options={{ headerShown: false }}/>
         <Stack.Screen name="Description" component={DescriptionView} options={{ title: 'Descripcion' }}/>
       </Stack.Navigator>

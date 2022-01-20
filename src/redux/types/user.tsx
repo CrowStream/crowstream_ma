@@ -15,5 +15,5 @@ export interface Profile {
 };
 
 export interface Profiles {
-    profiles: [Profile],
+    profiles: Profile[],
 };

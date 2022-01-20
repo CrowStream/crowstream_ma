@@ -2,15 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { ProfileSelector } from "../";
 import { Profile } from '../../../../src/redux/types';
 
-export function NewProfileSelector() {
+interface NewProfileSelector {
+    navigation: any,
+};
+
+export function NewProfileSelector(props: NewProfileSelector) {
+    const { navigation } = props;
+
     const profile: Profile = {
         id: '',
         name: '+  Crear un nuevo perfil',
     };
     
     const action = () => {
-        console.log('Crear nuevo perfil');
-        return;
+        navigation.navigate('ProfileCreation');
     };
 
     return (

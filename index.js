@@ -10,7 +10,7 @@ import { ApolloProvider as ApolloProvider } from "@apollo/client";
 import { name as appName } from './app.json';
 import store from './src/redux/store';
 import client from './src/services/common.services';
-import { LoginScreen }  from './screens/UserScreens';
+import App from './App';
 
 
 
@@ -19,7 +19,7 @@ export default function Main() {
         <ApolloProvider client={client}>
             <StoreProvider store={store}>
                 <PaperProvider>
-                    <LoginScreen />
+                    <App />
                 </PaperProvider>
             </StoreProvider>
         </ApolloProvider>

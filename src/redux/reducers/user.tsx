@@ -85,10 +85,11 @@ const profilesSlice: Slice<Profiles, SliceCaseReducers<Profiles>, string> = crea
     name: 'Profiles',
     initialState: profilesInitialState,
     reducers: {
-        get_all_profiles: (state: Profiles, action: PayloadAction<Profiles>): Profiles => {
+        get_all_profiles: (state: Profiles, action: PayloadAction<any>): Profiles => {
+            const { profiles } = action.payload.data.userProfiles;
             return {
                 ...state,
-                profiles: action.payload.profiles,
+                profiles: profiles,
             };
         },
     },

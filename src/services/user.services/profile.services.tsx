@@ -13,7 +13,7 @@ import { token_protected_mutation, token_protected_query } from "../common.servi
 
 const create_profile: DocumentNode = gql`
     mutation($name: String!) {
-        createPrfile(newProfile: {
+        createProfile(newProfile: {
             name: $name
         }) {
             profile {

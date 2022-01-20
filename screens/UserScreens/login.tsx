@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { SafeAreaView, View } from 'react-native';
+import { Pressable, SafeAreaView, View } from 'react-native';
 import {
     Button,
     Text,
@@ -13,17 +13,22 @@ import {
 import store, { useReduxDispatch, useReduxSelector } from '../../src/redux/store';
 
 import {
+    getAllProfiles,
     signIn,
 } from '../../src/services';
 
 import {
+    get_all_profiles,
     sign_in,
 } from '../../src/redux';
+import { PropsLogin } from '../RootStackParams';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
 import styles from './styles';
 
-export function LoginScreen() {
+export function LoginScreen({ route, navigation }: PropsLogin) {
     const value = useReduxSelector(state => state);
     const dispatch = useReduxDispatch();
 
@@ -56,13 +61,12 @@ export function LoginScreen() {
                     style={styles.login_password_input}
                 ></TextInput>
 
-                <Text
-                    style={[styles.p2, styles.login_register]}
-                >
-                    ¿No tienes una cuenta?
-                    {/* TODO: make it a link to go to register page */}
-                    Regístrate
-                </Text>
+
+                <Pressable onPress={() => { navigation.navigate('Register') }}>
+                    <Text style={[styles.p2, styles.login_register]}>
+                        ¿No tienes una cuenta?  Registrate
+                    </Text>
+                </Pressable>
 
                 <Button
                     disabled={ email.length < 8 || password.length < 8 }
@@ -72,8 +76,12 @@ export function LoginScreen() {
                                 .then((response) => {
                                     if (typeof response != 'string') {
                                         dispatch(sign_in(response));
-                                        // TODO: Delete the console log and redirect to select profile page
-                                        console.log('Loggeado papu');
+                                        getAllProfiles()
+                                            .then((response) => {
+                                                dispatch(get_all_profiles(response));
+                                            })
+                                            .catch(console.error);
+                                        navigation.navigate('ProfileSelection');
                                     }
                                 });
                         }

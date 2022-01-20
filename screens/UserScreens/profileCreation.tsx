@@ -13,17 +13,18 @@ import {
 import store, { useReduxDispatch, useReduxSelector } from '../../src/redux/store';
 
 import {
-    createProfile,
+    createProfile, getAllProfiles,
 } from '../../src/services';
 
 import {
-    create_profile,
+    create_profile, get_all_profiles,
 } from '../../src/redux';
 
 
 import styles from './styles';
+import { PropsProfileCreation } from '../RootStackParams';
 
-export function ProfileCreationScreen() {
+export function ProfileCreationScreen({ route, navigation }: PropsProfileCreation) {
     const value = useReduxSelector(state => state);
     const dispatch = useReduxDispatch();
 
@@ -46,13 +47,18 @@ export function ProfileCreationScreen() {
                 ></TextInput>
 
                 <Button
-                    disabled={name.length < 8}
+                    disabled={name.length < 1}
                     onPress={
                         () => {
                             createProfile(name)
                                 .then((response) => {
                                     dispatch(create_profile(response));
-                                    console.log('Created');
+                                    getAllProfiles()
+                                        .then((response) => {
+                                            dispatch(get_all_profiles(response));
+                                        })
+                                        .catch(console.error);
+                                    navigation.navigate('ProfileSelection');
                                 }).catch(console.error);
                         }
                     }
