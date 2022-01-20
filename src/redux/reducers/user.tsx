@@ -41,16 +41,17 @@ const userSlice: Slice<User, SliceCaseReducers<User>, string> = createSlice({
     name: 'User',
     initialState: userInitialState,
     reducers: {
-        signIn: (state: User, action: PayloadAction<User>): User => {
+        sign_in: (state: User, action: PayloadAction<any>): User => {
+            const { token } = action.payload.data.signin.token;
             return {
                 ...state,
-                token: action.payload.token,
+                token: token,
             };
         },
-        signUp: (state: User, _): User => {
+        sign_up: (state: User, _): User => {
             return state;
         },
-        whoAmI: (state: User, action: PayloadAction<User>): User => {
+        who_am_i: (state: User, action: PayloadAction<User>): User => {
             const { id, email, is_email_verified } = action.payload;
             return {
                 ...state,
@@ -66,10 +67,10 @@ const currentProfileSlice: Slice<Profile, SliceCaseReducers<Profile>, string> = 
     name: 'Profile',
     initialState: currentProfileInitialState,
     reducers: {
-        createProfile: (state: Profile, _): Profile => {
+        create_profile: (state: Profile, _): Profile => {
             return state;
         },
-        getProfileById: (state: Profile, action: PayloadAction<Profile>): Profile => {
+        get_profile_by_id: (state: Profile, action: PayloadAction<Profile>): Profile => {
             const { id, name } = action.payload;
             return {
                 ...state,
@@ -84,7 +85,7 @@ const profilesSlice: Slice<Profiles, SliceCaseReducers<Profiles>, string> = crea
     name: 'Profiles',
     initialState: profilesInitialState,
     reducers: {
-        getAllProfiles: (state: Profiles, action: PayloadAction<Profiles>): Profiles => {
+        get_all_profiles: (state: Profiles, action: PayloadAction<Profiles>): Profiles => {
             return {
                 ...state,
                 profiles: action.payload.profiles,
@@ -94,18 +95,18 @@ const profilesSlice: Slice<Profiles, SliceCaseReducers<Profiles>, string> = crea
 });
 
 export const {
-    signIn,
-    signUp,
-    whoAmI,
+    sign_in,
+    sign_up,
+    who_am_i,
 }: CaseReducerActions<SliceCaseReducers<User>> = userSlice.actions;
 
 export const {
-    createPost,
-    getPsotById,
+    create_profile,
+    get_profile_by_id,
 }: CaseReducerActions<SliceCaseReducers<User>> = currentProfileSlice.actions;
 
 export const {
-    getAllProfiles,
+    get_all_profiles,
 }: CaseReducerActions<SliceCaseReducers<User>> = profilesSlice.actions;
 
 export const userReducer: Reducer<User, AnyAction> = userSlice.reducer;

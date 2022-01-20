@@ -9,7 +9,7 @@ import {
 } from "@apollo/client";
 
 // Crowstream
-import { token_protected_mutation, token_protected_query } from "../common.services";
+import client, { token_protected_mutation, token_protected_query } from "../common.services";
 
 
 const sign_in: DocumentNode = gql`
@@ -25,7 +25,7 @@ const sign_in: DocumentNode = gql`
     }
 `;
 
-const sing_up: DocumentNode = gql`
+const sign_up: DocumentNode = gql`
     mutation($email: String!, $password: String!) {
         signup(accountCredentials: {
             email: $email
@@ -52,17 +52,23 @@ const who_i_am: DocumentNode = gql`
 
 export function signIn(email: String, password: String) {
     return new Promise((resolve) => {
-        token_protected_mutation(sign_in, { email, password })
+        client.mutate({ mutation: sign_in, variables: { email, password }})
             .then(resolve)
-            .catch(console.error);
+            .catch((err) => {
+                console.error(err);
+                return 'Error';
+            });
     });
 }
 
-export function singUp(email: String, password: String) {
+export function signUp(email: String, password: String) {
     return new Promise((resolve) => {
-        token_protected_mutation(sing_up, { email, password })
+        client.mutate({ mutation: sign_up, variables: { email, password} })
             .then(resolve)
-            .catch(console.error);
+            .catch((err) => {
+                console.error(err);
+                return 'Error';
+            });
     });
 }
 
@@ -70,6 +76,9 @@ export function whoIAm() {
     return new Promise((resolve) => {
         token_protected_query(who_i_am, {})
             .then(resolve)
-            .catch(console.error);
+            .catch((err) => {
+                console.error(err);
+                return 'Error';
+            });
     });
 }
